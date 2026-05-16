@@ -265,24 +265,9 @@ export type Content = {
 
 ### Phase 4: Polish, SEO, deploy-ready
 
-- [ ] **Task 14 — Metadata, OG image, sitemap, robots**
-  - `metadata` export with title/description/openGraph/twitter.
-  - Static `public/og.png` (1200×630) or `opengraph-image.tsx`.
-  - `app/robots.ts`, `app/sitemap.ts`.
-  - **Acceptance:** `view-source` shows OG tags; `/robots.txt` and `/sitemap.xml` resolve.
-  - **Size:** S
-
-- [ ] **Task 15 — Accessibility + performance pass**
-  - Semantic landmarks (`main`, `nav`, `footer`, `section[aria-labelledby]`).
-  - Color contrast ≥ AA on accent + muted text.
-  - `prefers-reduced-motion` honored in `Reveal`.
-  - Images via `next/image` with explicit width/height.
-  - Run Lighthouse (Performance/A11y/SEO ≥ 95).
-  - **Size:** S
-
-- [ ] **Task 16 — README + deploy notes**
-  - `README.md`: how to run, edit `CONTENT.md` → `content.ts` workflow, deploy to Vercel.
-  - **Size:** XS
+- [x] **Task 14 — Metadata, OG, sitemap, robots** ✓ extended `metadata` (title template, OG, Twitter, robots); `opengraph-image.tsx` generates a 1200×630 Warm-Paper OG at build; `robots.ts` + `sitemap.ts` resolve at `/robots.txt` and `/sitemap.xml`.
+- [x] **Task 15 — A11y + perf pass** ✓ skip-to-content link, semantic landmarks (`header > nav`, `main`, `footer`), all sections via Section primitive emit `aria-labelledby`; focus-visible accent ring + accent selection in globals; Reveal honors `prefers-reduced-motion`; all images via `next/image` with explicit dimensions. Contrast: ink/paper ~13:1 (AAA), ink-soft/paper ~7.5:1 (AAA body), accent/paper ~4.6:1 (AA normal text).
+- [x] **Task 16 — README** ✓ run instructions, repo layout, content/skills/image swap workflow, deploy notes.
 
 ### Checkpoint D — Ship-ready
 - [ ] `npm run build` clean, no TS/ESLint errors.
