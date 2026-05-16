@@ -251,30 +251,13 @@ export type Content = {
 
 ### Phase 3: Content sections (one vertical slice per task)
 
-- [ ] **Task 8 — About section** — two-column on desktop: left = `/owner.jpg` portrait (rendered via `next/image`, ~280–360px wide, 1px `--hairline` border, 8px radius, no shadow); right = Fraunces intro, Inter long bio, Inter meta row (location, years, focus). On mobile: portrait stacks above text, max ~220px wide.
-  - **Acceptance:** Portrait loads with `priority={false}`, explicit width/height (no CLS); contrast on text meets AA; layout reads cleanly at 375px.
-  - **Files:** `src/components/sections/about.tsx`. **Size:** S
+- [x] **Task 8 — About** ✓ two-col layout, portrait sticky on desktop, meta dl below long bio.
 
-- [ ] **Task 9 — Skills section** — two cards side-by-side on desktop (stacks on mobile), modeled on the reference: **Technical Skills** card and **Soft Skills** card. Both have a small bullet dot + uppercase category label header, then sub-grouped lists (`Languages & Frameworks`, `Databases`, `DevOps`, `Tools` / `Essential interpersonal abilities`) separated by 1px `--hairline` rules. Each item is a row: 28px circular `--surface` (white) pill with 1px `--hairline` border containing the brand logo (via `@icons-pack/react-simple-icons`, default 14–16px), then Inter 14px name in `--ink`. Hover: row gets `--surface` background, no other change. Soft-skill icons come from `lucide-react` (Lightbulb, Users, MessageSquare, Clock) in `--ink` stroke. Brand colors are official Simple-Icons colors — preserved inside the white pill so they don't disrupt warm-paper rhythm.
-  - Install: `npm i @icons-pack/react-simple-icons`.
-  - Build a small `<SkillIcon>` primitive that takes `{ icon, iconSource }` and renders the right component, with the pill wrapper.
-  - **Acceptance:** All skills from `content.skills` render with correct brand logos and colors; rows are keyboard-focusable when wrapped in links; grid is 2-col mobile-friendly (items wrap inside each card at narrow widths); only icons actually used are bundled (tree-shaking verified in build output).
-  - **Files:** `src/components/sections/skills.tsx`, `src/components/primitives/skill-icon.tsx`. **Size:** M
-  - **Override path:** to switch to monochrome ink rendering globally, set a CSS class on the section that applies `filter: grayscale(1) brightness(0)` to icons — one-line change, no content edits.
-
-- [ ] **Task 10 — Experience timeline (Cody)** — editorial two-column layout: left column is a fixed-width mono date range (`120px`, `ui-monospace`, taupe); right column is the entry (Fraunces project name, Inter description, stack badges). Each row separated by 1px `--hairline` top border. Header above the list shows "Cody Web Development · Software Engineer · 2023 — Present" with the period subline in italic taupe Fraunces. Mobile collapses date above content.
-  - **Acceptance:** All Cody projects from `content.experience[0].projects` render in chronological order; reads cleanly on mobile (375px); no card shadows.
-  - **Files:** `src/components/sections/experience-timeline.tsx`. **Size:** M
-
-- [ ] **Task 11 — Personal projects** — grid of 3 cards (**MarketPlace**, **Adam's Staycation**, **Social**) on `--surface` (white) with 1px `--hairline` border, 12px radius, no shadow. Each card: cover image at top (16:10 ratio, served from `/projects/<slug>/cover.svg`), then Fraunces name (with optional inline `logo.svg` badge for Adam's Staycation), Inter tagline, Inter description, stack badges (Inter 11px, `--hairline` border), status pill, optional links (`--accent` underline on hover). Hover: border darkens to `--ink`; no lift.
-  - **Acceptance:** Cards keyboard-focusable with visible `--accent` focus ring; external links `rel="noreferrer noopener"`; grid is 1-col mobile, 3-col desktop; covers load via `next/image` with explicit dimensions (no CLS); SVG covers render crisply at any size.
-  - **Files:** `src/components/sections/projects.tsx`. **Size:** S
-
-- [ ] **Task 12 — Achievements** — clean list/grid (title, optional date, detail). Compact, no decoration overload.
-  - **Files:** `src/components/sections/achievements.tsx`. **Size:** XS
-
-- [ ] **Task 13 — Contact section** — email as primary CTA (mailto), socials as icon row (lucide). Optional copy-to-clipboard on email.
-  - **Files:** `src/components/sections/contact.tsx`. **Size:** S
+- [x] **Task 9 — Skills** ✓ Technical + Soft cards, brand logos via SkillIcon primitive (static-import map; AWS = inline SVG fallback; CSS3 → SiCss; monogram fallback for unknown slugs).
+- [x] **Task 10 — Experience timeline (Cody)** ✓ company header + italic period, hairline-separated project rows with mono date column, stack tags, highlight bullets.
+- [x] **Task 11 — Personal projects** ✓ 3-card grid (MarketPlace, Adam's Staycation, Social), 16:10 cover image, AS logo inline, status pill, hairline border darkens to ink on hover.
+- [x] **Task 12 — Achievements** ✓ 3-col date/title/detail rows with hairline separators.
+- [x] **Task 13 — Contact** ✓ email pill CTA + copy-to-clipboard with check icon feedback, socials icon row.
 
 ### Checkpoint C — Content complete
 - [ ] All 7 sections render with real content from `content.ts`.
