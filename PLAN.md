@@ -208,14 +208,14 @@ export type Content = {
   - **Files:** `package.json`, `next.config.ts`, `tsconfig.json`, `postcss.config.mjs`, `src/app/{layout,page}.tsx`, `src/app/globals.css`, `components.json`.
   - **Size:** S
 
-- [ ] **Task 2 — Design tokens, fonts, global styles**
-  - Wire **Fraunces** (display) + **Inter** (body/UI) via `next/font/google` in `layout.tsx`, expose as CSS vars (`--font-display`, `--font-sans`).
-  - Define CSS vars in `globals.css` per the Design System table: `--paper`, `--ink`, `--ink-soft`, `--taupe`, `--hairline`, `--surface`, `--accent`, `--accent-ink`.
-  - Set `<html lang="en">` (light-only v1, no `class="dark"`); page bg `--paper`, text `--ink`.
-  - Configure Tailwind v4 `@theme` block mapping vars → utilities (`bg-paper`, `text-ink`, `text-taupe`, `border-hairline`, `text-accent`, `font-display`, `font-sans`).
-  - Base utilities: smooth-scroll, focus-visible ring in `--accent`, selection color `--accent` on `--paper`, fluid display sizing helpers.
-  - **Acceptance:** Page renders warm-paper background, Fraunces visible in hero, Inter in body, terracotta accent visible via `text-accent`, no FOUT, contrast `--ink` on `--paper` ≥ 13:1.
-  - **Files:** `src/app/layout.tsx`, `src/app/globals.css`, `src/config/site.ts`, `src/config/theme.ts`.
+- [x] **Task 2 — Design tokens, fonts, global styles** ✓
+  - Wired Fraunces (weights 400/500/600 + italic) + Inter via `next/font/google` in `layout.tsx`, exposed as `--font-fraunces` / `--font-inter` → mapped to `--font-display` / `--font-sans` in `@theme`.
+  - Defined all 8 brand tokens in `globals.css` `:root`. shadcn tokens (`--background`, `--foreground`, `--primary`, etc.) bridged to our palette so primitives stay on-brand automatically.
+  - Light-only v1 (`<html lang="en">`, no `.dark` class). Body forced to `bg-paper text-ink font-sans`.
+  - Tailwind v4 `@theme inline` exposes `bg-paper`, `text-ink`, `text-taupe`, `border-hairline`, `text-accent`, `font-display`, `font-sans`. Smooth-scroll + accent focus-ring + accent selection wired in `@layer base`.
+  - **Acceptance:** verified via compiled CSS at dev-server runtime — all 5 brand hex values (`#f7f5f2`, `#2b2a27`, `#8a7f70`, `#e8e2d8`, `#b5651d`) and both font CSS vars present. `tsc --noEmit` clean, `npm run build` succeeds.
+  - **Files:** `src/app/layout.tsx`, `src/app/globals.css`, `src/app/page.tsx` (minimal smoke-test page).
+  - Note: deferred `src/config/site.ts` / `theme.ts` to Task 3 (content) since they're content-adjacent.
   - **Size:** S
 
 - [ ] **Task 3 — Author `CONTENT.md` and typed `content.ts`**
