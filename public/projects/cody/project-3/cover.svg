@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Cody Project 3 placeholder">
+  <rect width="1200" height="800" fill="#F7F5F2"/>
+  <g transform="translate(80,80)">
+    <text x="0" y="0" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="14" letter-spacing="2.4" fill="#8A7F70">03  ·  CODY WEB DEVELOPMENT</text>
+  </g>
+  <g transform="translate(600,460)" text-anchor="middle">
+    <text x="0" y="0" font-family="Georgia, 'Times New Roman', serif" font-size="320" fill="#E8E2D8" font-weight="400">03</text>
+  </g>
+  <g transform="translate(80,360)">
+    <text x="0" y="0" font-family="Georgia, 'Times New Roman', serif" font-size="76" fill="#2B2A27" font-weight="400">Long-form</text>
+    <text x="0" y="84" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="76" fill="#B5651D" font-weight="400">storytelling.</text>
+  </g>
+  <rect x="80" y="540" width="200" height="1" fill="#2B2A27"/>
+  <g transform="translate(80,580)">
+    <text x="0" y="0" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="14" fill="#5A5550" letter-spacing="0.3">Editorial CMS · content modeling · publishing tools</text>
+  </g>
+  <g transform="translate(80,720)">
+    <text x="0" y="0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#8A7F70">placeholder · swap with screenshot</text>
+  </g>
+</svg>

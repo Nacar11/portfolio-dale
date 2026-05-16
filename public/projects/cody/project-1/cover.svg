@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Cody Project 1 placeholder">
+  <rect width="1200" height="800" fill="#F7F5F2"/>
+  <g transform="translate(80,80)">
+    <text x="0" y="0" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="14" letter-spacing="2.4" fill="#8A7F70">01  ·  CODY WEB DEVELOPMENT</text>
+  </g>
+  <g transform="translate(80,720)">
+    <text x="0" y="0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#8A7F70">placeholder · swap with screenshot</text>
+  </g>
+  <g transform="translate(80,180)">
+    <text x="0" y="0" font-family="Georgia, 'Times New Roman', serif" font-size="92" fill="#2B2A27" font-weight="400">Project</text>
+    <text x="0" y="100" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="92" fill="#B5651D" font-weight="400">No. 01</text>
+  </g>
+  <rect x="80" y="420" width="640" height="1" fill="#E8E2D8"/>
+  <g transform="translate(80,470)">
+    <text x="0" y="0" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="16" fill="#5A5550" letter-spacing="0.3">A short description of the engagement will live here.</text>
+    <text x="0" y="28" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="16" fill="#5A5550" letter-spacing="0.3">Quiet, editorial, calm.</text>
+  </g>
+  <g transform="translate(900,180)" opacity="0.9">
+    <rect x="0" y="0" width="220" height="320" fill="none" stroke="#E8E2D8" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="220" height="36" fill="#E8E2D8" rx="6"/>
+    <circle cx="14" cy="18" r="4" fill="#B5651D"/>
+    <circle cx="28" cy="18" r="4" fill="#8A7F70" opacity="0.6"/>
+    <circle cx="42" cy="18" r="4" fill="#8A7F70" opacity="0.4"/>
+    <rect x="20" y="64" width="180" height="10" fill="#2B2A27" opacity="0.85" rx="2"/>
+    <rect x="20" y="84" width="140" height="6" fill="#8A7F70" opacity="0.5" rx="2"/>
+    <rect x="20" y="120" width="80" height="80" fill="#E8E2D8" rx="4"/>
+    <rect x="110" y="120" width="80" height="80" fill="#F7F5F2" stroke="#E8E2D8" rx="4"/>
+    <rect x="20" y="220" width="180" height="6" fill="#8A7F70" opacity="0.4" rx="2"/>
+    <rect x="20" y="234" width="140" height="6" fill="#8A7F70" opacity="0.4" rx="2"/>
+    <rect x="20" y="280" width="80" height="22" fill="#2B2A27" rx="11"/>
+  </g>
+</svg>

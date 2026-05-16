@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Cody Project 2 placeholder">
+  <rect width="1200" height="800" fill="#F7F5F2"/>
+  <g transform="translate(80,80)">
+    <text x="0" y="0" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="14" letter-spacing="2.4" fill="#8A7F70">02  ·  CODY WEB DEVELOPMENT</text>
+  </g>
+  <g transform="translate(80,180)">
+    <text x="0" y="0" font-family="Georgia, 'Times New Roman', serif" font-size="92" fill="#2B2A27" font-weight="400">Modular</text>
+    <text x="0" y="100" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="92" fill="#2B2A27" font-weight="400">systems.</text>
+  </g>
+  <g transform="translate(80,460)">
+    <text x="0" y="0" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="15" fill="#5A5550">Internal tools · component library · dashboards</text>
+  </g>
+  <g transform="translate(720,140)">
+    <g fill="none" stroke="#E8E2D8" stroke-width="1.5">
+      <rect x="0" y="0" width="120" height="120" rx="6"/>
+      <rect x="140" y="0" width="120" height="120" rx="6"/>
+      <rect x="280" y="0" width="120" height="120" rx="6"/>
+      <rect x="0" y="140" width="120" height="120" rx="6"/>
+      <rect x="140" y="140" width="120" height="120" rx="6" fill="#2B2A27" stroke="#2B2A27"/>
+      <rect x="280" y="140" width="120" height="120" rx="6"/>
+      <rect x="0" y="280" width="120" height="120" rx="6"/>
+      <rect x="140" y="280" width="120" height="120" rx="6"/>
+      <rect x="280" y="280" width="120" height="120" rx="6" fill="#B5651D" stroke="#B5651D"/>
+    </g>
+    <text x="200" y="208" text-anchor="middle" font-family="Georgia, serif" font-size="48" fill="#F7F5F2">·</text>
+    <text x="340" y="348" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#F7F5F2" font-weight="600">AS</text>
+  </g>
+  <g transform="translate(80,720)">
+    <text x="0" y="0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#8A7F70">placeholder · swap with screenshot</text>
+  </g>
+</svg>
