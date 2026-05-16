@@ -233,26 +233,10 @@ export type Content = {
 
 ### Phase 2: Layout shell + Hero
 
-- [ ] **Task 4 — Add shadcn primitives**
-  - `npx shadcn@latest add button card badge separator navigation-menu sheet tooltip`
-  - **Files:** `src/components/ui/*`.
-  - **Size:** XS
-
-- [ ] **Task 5 — `Section` + `Reveal` primitives**
-  - `Section` enforces max-width (`max-w-5xl`), vertical padding, `id=` anchor.
-  - `Reveal` wraps children in Framer Motion fade-up on scroll-into-view; respects `prefers-reduced-motion`.
-  - **Files:** `src/components/primitives/section.tsx`, `src/components/primitives/reveal.tsx`.
-  - **Size:** S
-
-- [ ] **Task 6 — Top nav + mobile sheet + footer**
-  - Sticky nav: name/initials left, anchor links right; mobile uses `Sheet` drawer.
-  - Smooth-scroll on anchor click; active-section highlight via IntersectionObserver.
-  - Footer: copyright, socials, "built with Next.js + Tailwind".
-  - **Acceptance:** Keyboard tab traversal works; nav highlights current section; mobile drawer opens/closes.
-  - **Files:** `src/components/layout/nav.tsx`, `src/components/layout/footer.tsx`, `src/app/layout.tsx`.
-  - **Size:** M
-
-- [ ] **Task 7 — Hero section**
+- [x] **Task 4 — shadcn primitives** ✓ added button (existed) + card, badge, separator, sheet, tooltip. Skipped navigation-menu (built simple anchor nav by hand).
+- [x] **Task 5 — Section + Reveal + Tag primitives** ✓
+- [x] **Task 6 — Top nav (sticky, active-section IntersectionObserver, mobile Sheet) + Footer (socials via Simple Icons + inline LinkedIn SVG)** ✓
+- [x] **Task 7 — Hero section** ✓ rail label, fluid Fraunces display headline with terracotta italic accent, italic subhead, primary/secondary pill CTAs, 3-col meta dl (Based in / Status / Currently).
   - Editorial rail label ("01 — Introduction") in uppercase Inter, taupe.
   - Large Fraunces display headline (`clamp(2.5rem, 6vw, 4.5rem)`) with one italic accent phrase in `--accent` terracotta (e.g., "crafting *calm, useful* web products").
   - Italic Fraunces subhead in `--taupe` (1–2 sentences).

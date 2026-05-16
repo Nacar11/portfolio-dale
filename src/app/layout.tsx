@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import { Nav } from "@/components/layout/nav";
+import { Footer } from "@/components/layout/footer";
+import { site } from "@/config/site";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -17,9 +20,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Dale Nacario — Software Engineer",
-  description:
-    "Portfolio of Dale Nacario, software engineer with three years building thoughtful web products at Cody Web Development.",
+  title: `${site.name} — ${site.role}`,
+  description: site.description,
 };
 
 export default function RootLayout({
@@ -33,7 +35,9 @@ export default function RootLayout({
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink font-sans">
-        {children}
+        <Nav />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );
