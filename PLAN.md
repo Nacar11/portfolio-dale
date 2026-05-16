@@ -218,11 +218,13 @@ export type Content = {
   - Note: deferred `src/config/site.ts` / `theme.ts` to Task 3 (content) since they're content-adjacent.
   - **Size:** S
 
-- [ ] **Task 3 — Author `CONTENT.md` and typed `content.ts`**
-  - `CONTENT.md` is already drafted with known info + `TODO:` placeholders (see [CONTENT.md](./CONTENT.md)).
-  - Create `src/config/content.ts` exporting `content: Content` mirroring it.
-  - **Acceptance:** `import { content } from '@/config/content'` typechecks.
-  - **Files:** `CONTENT.md` (exists), `src/config/content.ts`.
+- [x] **Task 3 — Author `CONTENT.md` and typed `content.ts`** ✓
+  - `CONTENT.md` already drafted with known info + `TODO:` markers.
+  - Created `src/config/content.ts` exporting `content: Content` mirroring CONTENT.md verbatim (Hero/About/Skills/Experience/Projects/Achievements/Contact). Type union helpers exported: `ProjectSlug`, `IconSource`, `SocialIcon`, `ProjectStatus`.
+  - Also created `src/config/site.ts` (name, url, description) and `src/config/theme.ts` (typed reference to the design tokens for programmatic access).
+  - Wired `page.tsx` to import `content` from `@/config/content` — proves the import works end-to-end.
+  - **Acceptance:** `tsc --noEmit` clean; build green; `content.hero.name` renders on the page.
+  - **Files:** `src/config/{content,site,theme}.ts`, `src/app/page.tsx`.
   - **Size:** S
 
 ### Checkpoint A — Foundation

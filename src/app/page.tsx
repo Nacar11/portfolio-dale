@@ -1,3 +1,5 @@
+import { content } from "@/config/content";
+
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-dvh max-w-5xl flex-col px-8 py-24">
@@ -6,7 +8,7 @@ export default function Home() {
       </p>
 
       <h1 className="mt-6 font-display text-5xl leading-[1.02] tracking-tight text-ink md:text-7xl">
-        Dale Nacario.
+        {content.hero.name}.
       </h1>
 
       <p className="mt-4 max-w-lg font-display text-xl italic text-taupe">
