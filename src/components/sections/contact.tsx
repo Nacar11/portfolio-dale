@@ -63,7 +63,7 @@ export function Contact() {
   ];
 
   return (
-    <Section id="contact" rail="07 — Contact">
+    <Section id="contact" rail="06 — Contact">
       <Reveal>
         <div className="inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/60 px-3 py-1 font-sans text-[11px] uppercase tracking-[0.14em] text-ink-soft">
           <span className="relative flex h-1.5 w-1.5">

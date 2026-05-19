@@ -22,7 +22,7 @@ const STATUS_LABEL: Record<string, string> = {
 
 export function Projects() {
   return (
-    <Section id="projects" rail="05 — Personal projects">
+    <Section id="projects" rail="04 — Personal projects">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {content.projects.map((project, idx) => (
           <Reveal key={project.slug} delay={idx * 0.06}>

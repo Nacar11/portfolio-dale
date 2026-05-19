@@ -13,7 +13,7 @@ function formatYear(value: string) {
 
 export function ExperienceTimeline() {
   return (
-    <Section id="experience" rail="04 — Experience">
+    <Section id="experience" rail="03 — Experience">
       {content.experience.map((entry) => (
         <div key={entry.company} className="mb-14 last:mb-0">
           <Reveal>

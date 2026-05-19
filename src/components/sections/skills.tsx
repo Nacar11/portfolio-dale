@@ -8,7 +8,7 @@ export function Skills() {
   const { education, currentlyExploring } = content.background;
 
   return (
-    <Section id="skills" rail="03 — Skills">
+    <Section id="skills" rail="02 — Skills">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <Reveal>
           <SkillCard title="Technical Skills" groups={technical} />

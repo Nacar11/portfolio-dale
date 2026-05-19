@@ -14,7 +14,7 @@ export function Achievements() {
   if (content.achievements.length === 0) return null;
 
   return (
-    <Section id="achievements" rail="06 — Achievements & certifications">
+    <Section id="achievements" rail="05 — Achievements & certifications">
       <ul>
         {content.achievements.map((a, idx) => (
           <Reveal
