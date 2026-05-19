@@ -87,13 +87,15 @@ export function ScreensLightbox({
         <X className="h-5 w-5" strokeWidth={1.75} />
       </button>
 
-      {/* Counter */}
-      <div
-        aria-live="polite"
-        className="absolute left-4 top-4 rounded-full bg-surface/90 px-3 py-1 font-mono text-xs text-ink shadow-md"
-      >
-        {index + 1} / {total}
-      </div>
+      {/* Counter (hidden when only one image) */}
+      {total > 1 && (
+        <div
+          aria-live="polite"
+          className="absolute left-4 top-4 rounded-full bg-surface/90 px-3 py-1 font-mono text-xs text-ink shadow-md"
+        >
+          {index + 1} / {total}
+        </div>
+      )}
 
       {/* Prev */}
       {total > 1 && (
@@ -107,15 +109,15 @@ export function ScreensLightbox({
         </button>
       )}
 
-      {/* Current image */}
-      <div className="relative flex h-full max-h-[80vh] w-full max-w-[min(420px,90vw)] items-center justify-center">
+      {/* Current image — generous max-width so landscape images (e.g. certificates) also fit comfortably */}
+      <div className="relative flex h-full max-h-[85vh] w-full max-w-[min(900px,95vw)] items-center justify-center">
         <div className="relative h-full w-full overflow-hidden rounded-[1.5rem] border border-hairline bg-surface shadow-2xl">
           <Image
             key={currentSrc}
             src={currentSrc}
-            alt={`${altPrefix} screen ${index + 1}`}
+            alt={total > 1 ? `${altPrefix} screen ${index + 1}` : altPrefix}
             fill
-            sizes="(max-width: 768px) 90vw, 420px"
+            sizes="(max-width: 768px) 95vw, 900px"
             className="object-contain"
             priority
           />

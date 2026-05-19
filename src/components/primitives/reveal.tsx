@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {
@@ -11,8 +12,17 @@ type RevealProps = {
 
 export function Reveal({ delay = 0, className, children }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
+  const [bfcacheRestored, setBfcacheRestored] = useState(false);
 
-  if (prefersReducedMotion) {
+  useEffect(() => {
+    function onPageShow(e: PageTransitionEvent) {
+      if (e.persisted) setBfcacheRestored(true);
+    }
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, []);
+
+  if (prefersReducedMotion || bfcacheRestored) {
     return <div className={className}>{children}</div>;
   }
 

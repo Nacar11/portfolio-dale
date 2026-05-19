@@ -22,10 +22,21 @@ export type Content = {
     focusAreas?: string[];
   };
   skills: {
-    section: "technical" | "soft";
+    section: "technical";
     category: string;
     items: { name: string; icon: string; iconSource: IconSource }[];
   }[];
+  background: {
+    education: {
+      degree: string;
+      institution: string;
+      year: string;
+    };
+    currentlyExploring: {
+      title: string;
+      description: string;
+    };
+  };
   experience: {
     company: string;
     companyUrl?: string;
@@ -60,7 +71,13 @@ export type Content = {
       all?: string[];
     };
   }[];
-  achievements: { title: string; date?: string; detail?: string }[];
+  achievements: {
+    title: string;
+    date?: string;
+    detail?: string;
+    image?: string;
+    link?: string;
+  }[];
   contact: {
     email: string;
     socials: { label: string; href: string; icon: SocialIcon }[];
@@ -126,11 +143,6 @@ export const content: Content = {
       items: [
         { name: "Docker", icon: "docker", iconSource: "simple-icons" },
         { name: "Vercel", icon: "vercel", iconSource: "simple-icons" },
-        {
-          name: "DigitalOcean",
-          icon: "digitalocean",
-          iconSource: "simple-icons",
-        },
       ],
     },
     {
@@ -147,21 +159,20 @@ export const content: Content = {
         { name: "REST APIs", icon: "Network", iconSource: "lucide" },
       ],
     },
-    {
-      section: "soft",
-      category: "Essential interpersonal abilities",
-      items: [
-        { name: "Problem Solving", icon: "Lightbulb", iconSource: "lucide" },
-        { name: "Teamwork", icon: "Users", iconSource: "lucide" },
-        {
-          name: "Effective Communication",
-          icon: "MessageSquare",
-          iconSource: "lucide",
-        },
-        { name: "Time Management", icon: "Clock", iconSource: "lucide" },
-      ],
-    },
   ],
+
+  background: {
+    education: {
+      degree: "BS Computer Science",
+      institution: "University of San Jose–Recoletos",
+      year: "2023",
+    },
+    currentlyExploring: {
+      title: "AI-assisted development workflows",
+      description:
+        "Refining how tools like Claude and Windsurf can sharpen the spec → implementation → review cycle without compromising code quality.",
+    },
+  },
 
   experience: [
     {
@@ -335,9 +346,15 @@ export const content: Content = {
   ],
 
   achievements: [
-    { title: "TODO: Achievement title", date: "TODO", detail: "TODO" },
-    { title: "TODO: Achievement title", date: "TODO", detail: "TODO" },
-    { title: "TODO: Achievement title", date: "TODO", detail: "TODO" },
+    {
+      title:
+        "Excellence Award — 18th Digital Signal Processing Creative Design Contest",
+      date: "March 2023",
+      detail:
+        "A college-era highlight: awarded in the International Group at the annual contest hosted by Southern Taiwan University of Science and Technology (STUST), which recognizes creative engineering work in digital signal processing from entries across the Asia-Pacific region.",
+      image: "/certifications/digital-signal-processing-creative-design.jpg",
+      link: "https://dspcdc.ee.stust.edu.tw/intro_en.php",
+    },
   ],
 
   contact: {
@@ -350,7 +367,7 @@ export const content: Content = {
       },
       {
         label: "LinkedIn",
-        href: "https://linkedin.com/in/TODO",
+        href: "https://www.linkedin.com/in/bran-dale-nacario-2b9464280/",
         icon: "linkedin",
       },
       {
