@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { Menu } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -88,12 +87,12 @@ export function Nav() {
       className="sticky top-0 z-50 border-b border-hairline/60 bg-paper/85 backdrop-blur supports-[backdrop-filter]:bg-paper/65"
     >
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6 md:px-8">
-        <Link
+        <a
           href="#hero"
           className="font-display text-base tracking-tight text-ink"
         >
           {site.name}
-        </Link>
+        </a>
 
         <nav
           ref={navRef}
