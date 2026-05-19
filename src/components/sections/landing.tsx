@@ -15,20 +15,22 @@ export function Landing() {
       id="hero"
       rail="01 — Introduction"
       className="pt-12 md:pt-20"
-      containerClassName="flex min-h-[calc(100dvh-4rem)] flex-col justify-center"
+      containerClassName="flex min-h-[88dvh] flex-col justify-center"
     >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_minmax(320px,420px)] md:gap-12">
         <div className="flex flex-col">
           <Reveal>
             <h1
-              className="font-display font-normal text-ink"
+              className="font-display text-ink"
               style={{
                 fontSize: "clamp(2.75rem, 7vw, 5rem)",
                 lineHeight: 1.02,
                 letterSpacing: "-0.02em",
+                fontVariationSettings: '"opsz" 144',
+                fontWeight: 500,
               }}
             >
-              {hero.name}.
+              {hero.name}
             </h1>
           </Reveal>
 
@@ -40,8 +42,7 @@ export function Landing() {
                 lineHeight: 1.4,
               }}
             >
-              Bringing 3 years of expertise in full-stack software engineering
-              and mobile development
+              {hero.tagline}
             </p>
           </Reveal>
 
@@ -51,12 +52,12 @@ export function Landing() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.26}>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+          <Reveal delay={0.3}>
+            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
               {primary && (
                 <Link
                   href={primary.href}
-                  className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 font-sans text-sm text-paper transition-colors hover:bg-accent-ink"
+                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-5 py-2.5 font-sans text-sm text-paper transition-colors hover:bg-accent-ink sm:w-auto sm:justify-start"
                 >
                   {primary.label}
                   <ArrowRight
@@ -69,7 +70,7 @@ export function Landing() {
                 <Link
                   key={cta.label}
                   href={cta.href}
-                  className="inline-flex items-center rounded-full border border-hairline px-5 py-2.5 font-sans text-sm text-ink transition-colors hover:border-ink"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-hairline px-5 py-2.5 font-sans text-sm text-ink transition-colors hover:border-ink sm:w-auto sm:justify-start"
                 >
                   {cta.label}
                 </Link>
@@ -77,7 +78,7 @@ export function Landing() {
               {hero.resumeHref && (
                 <Link
                   href={hero.resumeHref}
-                  className="inline-flex items-center rounded-full border border-hairline px-5 py-2.5 font-sans text-sm text-ink transition-colors hover:border-ink"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-hairline px-5 py-2.5 font-sans text-sm text-ink transition-colors hover:border-ink sm:w-auto sm:justify-start"
                 >
                   Download résumé
                 </Link>
@@ -101,8 +102,8 @@ export function Landing() {
               <Image
                 src={about.portrait}
                 alt={`Portrait of ${hero.name}`}
-                width={1000}                                                                                                                                                                                                                               
-                height={1000} 
+                width={1000}
+                height={1000}
                 className="object-cover"
                 style={{
                   transform: "translateX(1.5%) translateY(5%) scale(2)",
@@ -110,21 +111,24 @@ export function Landing() {
                   filter: "saturate(0.94) contrast(1.03)",
                 }}
                 sizes="(max-width: 700px) 280px, 420px"
+                priority
               />
             </div>
           </Reveal>
         )}
       </div>
 
-      <Reveal delay={0.32}>
-        <div className="mt-14 grid grid-cols-1 gap-x-10 gap-y-8 border-t border-hairline pt-8 sm:grid-cols-[auto_1fr] sm:items-end">
+      <Reveal delay={0.36}>
+        <div className="mt-14 grid grid-cols-1 divide-y divide-hairline border-t border-hairline-strong sm:mt-16 sm:grid-cols-3 sm:items-end sm:gap-x-12 sm:divide-y-0 sm:border-t sm:pt-8">
           {typeof years === "number" && (
-            <div className="flex items-baseline gap-3">
+            <div className="flex items-baseline justify-center gap-3 py-6 sm:justify-start sm:py-0">
               <span
-                className="font-display font-normal leading-none text-ink"
+                className="font-display leading-none text-ink"
                 style={{
                   fontSize: "clamp(3.5rem, 7vw, 5rem)",
                   letterSpacing: "-0.03em",
+                  fontVariationSettings: '"opsz" 144',
+                  fontWeight: 500,
                 }}
                 aria-label={`${years} ${years === 1 ? "year" : "years"} of experience`}
               >
@@ -141,17 +145,15 @@ export function Landing() {
             </div>
           )}
 
-          <dl className="grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-3">
-            {(about.location ?? hero.location) && (
-              <MetaItem
-                label="Based in"
-                value={(about.location ?? hero.location) as string}
-              />
-            )}
-            {hero.availability && (
-              <MetaItem label="Status" value={hero.availability} />
-            )}
-          </dl>
+          {(about.location ?? hero.location) && (
+            <MetaItem
+              label="Based in"
+              value={(about.location ?? hero.location) as string}
+            />
+          )}
+          {hero.availability && (
+            <MetaItem label="Status" value={hero.availability} />
+          )}
         </div>
       </Reveal>
     </Section>
@@ -160,11 +162,11 @@ export function Landing() {
 
 function MetaItem({ label, value }: { label: string; value: string }) {
   return (
-    <div>
+    <dl className="flex flex-row items-baseline justify-center gap-3 py-5 sm:flex-col sm:items-start sm:justify-start sm:gap-0 sm:py-0">
       <dt className="font-sans text-[10px] uppercase tracking-[0.14em] text-taupe">
         {label}
       </dt>
-      <dd className="mt-1 font-sans text-sm text-ink">{value}</dd>
-    </div>
+      <dd className="font-sans text-sm text-ink sm:mt-1.5">{value}</dd>
+    </dl>
   );
 }

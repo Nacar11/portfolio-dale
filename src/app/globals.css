@@ -10,11 +10,13 @@
 :root {
   /* Brand palette (raw values) */
   --paper: #f7f5f2;
+  --paper-warm: #f1ece2; /* Cebu afternoon — one tonal step warmer for section banding */
   --surface: #ffffff;
   --ink: #2b2a27;
   --ink-soft: #5a5550;
   --taupe: #8a7f70;
   --hairline: #e8e2d8;
+  --hairline-strong: #d8d1c2; /* section-level dividers; hairline stays for cards */
   --accent: #b5651d;
   --accent-ink: #8a4a14;
 
@@ -43,11 +45,13 @@
 @theme inline {
   /* Brand tokens exposed as Tailwind utilities: bg-paper, text-ink, etc. */
   --color-paper: var(--paper);
+  --color-paper-warm: var(--paper-warm);
   --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-taupe: var(--taupe);
   --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
 
@@ -104,4 +108,47 @@
     outline-offset: 3px;
     border-radius: 4px;
   }
+}
+
+/* Fraunces optical-size axis: use on large display numerals to gain weight without darkening tone */
+.font-display-display {
+  font-variation-settings: "opsz" 144;
+  font-weight: 500;
+}
+
+/* Subtle scroll-driven fade on section rails — progressive enhancement; degrades silently */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .section-rail {
+      animation: rail-fade linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+    @keyframes rail-fade {
+      from { opacity: 0; transform: translateX(-4px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+  }
+}
+
+/* View Transitions for the screenshot / certificate lightbox.
+   Each named element animates as a shared element when toggled. */
+::view-transition-old(lightbox-image),
+::view-transition-new(lightbox-image) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Print: reformat to a one-page résumé. Drop nav/footer/decorative chrome. */
+@media print {
+  :root { --paper: #ffffff; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  header, footer, nav, [data-print="hide"] { display: none !important; }
+  a { color: #000 !important; text-decoration: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
+  section { padding: 12pt 0 !important; page-break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; }
+  img { max-width: 100%; height: auto; }
+  /* Collapse decorative tokens that don't reproduce well */
+  .print-compact { padding: 0 !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; background: transparent !important; }
 }

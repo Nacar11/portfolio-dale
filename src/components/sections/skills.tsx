@@ -6,6 +6,7 @@ import { content } from "@/config/content";
 export function Skills() {
   const technical = content.skills.filter((s) => s.section === "technical");
   const { education, currentlyExploring } = content.background;
+  const currentlyUsing = content.about.currentlyUsing;
 
   return (
     <Section id="skills" rail="02 — Skills">
@@ -17,6 +18,7 @@ export function Skills() {
           <BackgroundCard
             education={education}
             currentlyExploring={currentlyExploring}
+            currentlyUsing={currentlyUsing}
           />
         </Reveal>
       </div>
@@ -68,9 +70,11 @@ type Background = typeof content.background;
 function BackgroundCard({
   education,
   currentlyExploring,
+  currentlyUsing,
 }: {
   education: Background["education"];
   currentlyExploring: Background["currentlyExploring"];
+  currentlyUsing?: string[];
 }) {
   return (
     <div className="h-full rounded-xl border border-hairline bg-surface p-6 md:p-8">
@@ -112,6 +116,23 @@ function BackgroundCard({
             </p>
           </div>
         </div>
+
+        {currentlyUsing && currentlyUsing.length > 0 && (
+          <div>
+            <p className="border-b border-hairline pb-2 font-sans text-[11px] uppercase tracking-[0.12em] text-taupe">
+              Currently using
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-1.5">
+              {currentlyUsing.map((tool) => (
+                <li key={tool}>
+                  <span className="inline-flex items-center rounded-full border border-hairline bg-paper px-2.5 py-1 font-sans text-xs text-ink">
+                    {tool}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

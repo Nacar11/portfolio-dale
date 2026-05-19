@@ -2,6 +2,7 @@ import { Mail } from "lucide-react";
 import { SiGithub, SiX } from "@icons-pack/react-simple-icons";
 import { site } from "@/config/site";
 import { content } from "@/config/content";
+import { formatLastUpdated, LAST_UPDATED_ISO } from "@/lib/build-info";
 import type { SocialIcon } from "@/config/content";
 
 function LinkedinIcon({ className }: { className?: string }) {
@@ -27,30 +28,60 @@ const ICONS: Record<SocialIcon, React.ComponentType<{ className?: string }>> = {
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const updated = formatLastUpdated();
 
   return (
-    <footer id="footer" className="mt-24 border-t border-hairline">
-      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between md:px-8">
-        <p className="font-sans text-xs text-taupe">
-          © {year} {site.name}. Built with Next.js + Tailwind.
+    <footer
+      id="footer"
+      data-print="hide"
+      className="mt-24 border-t border-hairline"
+    >
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-10 md:px-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <p className="font-sans text-xs text-taupe">
+            © {year} {site.name}. Built with Next.js + Tailwind.
+          </p>
+          <ul className="flex items-center gap-5">
+            {content.contact.socials.map((s) => {
+              const Icon = ICONS[s.icon];
+              return (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    aria-label={s.label}
+                    rel="noreferrer noopener me"
+                    className="block text-taupe transition-colors hover:text-ink"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <p className="font-sans text-[11px] leading-relaxed text-taupe md:text-xs">
+          Typeset in{" "}
+          <a
+            href="https://fonts.google.com/specimen/Fraunces"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="underline-offset-2 transition-colors hover:text-ink hover:underline"
+          >
+            Fraunces
+          </a>{" "}
+          (display) and{" "}
+          <a
+            href="https://fonts.google.com/specimen/Inter"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="underline-offset-2 transition-colors hover:text-ink hover:underline"
+          >
+            Inter
+          </a>{" "}
+          (body). Built in Cebu.
+          <span aria-hidden className="mx-2 text-hairline-strong">·</span>
+          Last updated <time dateTime={LAST_UPDATED_ISO}>{updated}</time>
         </p>
-        <ul className="flex items-center gap-5">
-          {content.contact.socials.map((s) => {
-            const Icon = ICONS[s.icon];
-            return (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  aria-label={s.label}
-                  rel="noreferrer noopener"
-                  className="block text-taupe transition-colors hover:text-ink"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </footer>
   );

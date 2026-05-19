@@ -25,7 +25,7 @@ export function Section({
         {rail && (
           <p
             id={id ? `${id}-rail` : undefined}
-            className="mb-10 font-sans text-xs uppercase tracking-[0.14em] text-taupe"
+            className="section-rail mb-10 font-sans text-xs uppercase tracking-[0.14em] text-taupe"
           >
             {rail}
           </p>

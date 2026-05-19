@@ -32,7 +32,7 @@ export function ExperienceTimeline() {
                 entry.company
               )}
             </h2>
-            <p className="mt-2 font-display text-lg italic text-taupe md:text-xl">
+            <p className="mt-2 font-display text-lg text-taupe md:text-xl">
               {entry.role} · {formatPeriod(entry.start, entry.end)}
             </p>
             {entry.summary && (
@@ -42,13 +42,18 @@ export function ExperienceTimeline() {
             )}
           </Reveal>
 
-          <div className="mt-8 md:border-l md:border-hairline md:pl-6">
+          <div className="relative mt-8 md:border-l md:border-hairline md:pl-6">
             {entry.projects.map((project, idx) => (
               <Reveal
                 key={`${entry.company}-${idx}`}
                 delay={idx * 0.04}
-                className="border-t border-hairline py-6 first:border-t-0 first:pt-0"
+                className="relative border-t border-hairline py-6 first:border-t-0 first:pt-0 md:border-t-0 md:py-7 md:first:pt-0"
               >
+                {/* Timeline dot — replaces per-project top border on md+ */}
+                <span
+                  aria-hidden
+                  className="absolute -left-[27px] top-7 hidden h-2 w-2 rounded-full bg-ink ring-4 ring-paper md:block"
+                />
                 <h3 className="font-display text-xl text-ink md:text-2xl">
                   {project.name}
                 </h3>

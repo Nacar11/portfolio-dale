@@ -14,12 +14,12 @@ export type Content = {
     cta: { label: string; href: string }[];
   };
   about: {
-    intro: string;
     longBio: string;
     location?: string;
     portrait?: string;
     years?: number;
     focusAreas?: string[];
+    currentlyUsing?: string[];
   };
   skills: {
     section: "technical";
@@ -89,9 +89,10 @@ export const content: Content = {
     name: "Dale Nacario",
     role: "Software Engineer",
     tagline:
-      "TODO: one-line elevator pitch — e.g., 'Building thoughtful web products with three years of full-stack experience.'",
+      "Bringing 3 years of expertise in full-stack software engineering and mobile development.",
     location: "Cebu City, Philippines",
     availability: "Open to opportunities",
+    resumeHref: "/Dale-Nacario-Resume.pdf",
     cta: [
       { label: "Email me", href: "mailto:bdn.devwork@gmail.com" },
       { label: "GitHub", href: "https://github.com/Nacar11" },
@@ -99,14 +100,13 @@ export const content: Content = {
   },
 
   about: {
-    intro:
-      "TODO: short hook — who you are and what you focus on (1–2 sentences).",
     longBio:
       "Enhanced by a modern workflow that leverages cutting-edge AI tools to deliver optimized, high-fidelity digital solutions.",
     location: "Cebu City, Philippines",
     portrait: "/owner.png",
     years: 3,
-    focusAreas: ["TODO: Full-stack web", "TODO: Frontend systems"],
+    focusAreas: ["Full-stack web", "Backend systems", "Mobile (Flutter)"],
+    currentlyUsing: ["Claude Code", "Windsurf", "VS Code", "GitHub"],
   },
 
   skills: [
@@ -246,7 +246,7 @@ export const content: Content = {
             "Designed the relational data model (ERD) that the application was built on",
             "Implemented Google Authentication / sign-in on the Flutter mobile client",
             "Delivered vertical slices across the Flutter mobile client and Laravel backend in the same sprint cycles",
-            "Helped establish the mobile + backend architecture used by the wider team",
+            "Helped establish the mobile + backend architecture",
           ],
         },
       ],

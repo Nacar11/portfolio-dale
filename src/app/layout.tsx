@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
 import { site } from "@/config/site";
+import { content } from "@/config/content";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -48,16 +49,62 @@ export const metadata: Metadata = {
   },
 };
 
+function PersonJsonLd() {
+  const socials = content.contact.socials.map((s) => s.href);
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    url: site.url,
+    jobTitle: site.role,
+    email: content.contact.email,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cebu City",
+      addressCountry: "PH",
+    },
+    image: `${site.url}/owner.png`,
+    sameAs: socials,
+    worksFor: {
+      "@type": "Organization",
+      name: "Cody Web Development",
+      url: "https://www.linkedin.com/company/codywebdevelopment/",
+    },
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "University of San Jose–Recoletos",
+    },
+    description: site.description,
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // IndieAuth / Mastodon verification — declare canonical identities.
+  const meLinks = content.contact.socials
+    .filter((s) => s.icon === "github" || s.icon === "linkedin" || s.icon === "x")
+    .map((s) => s.href);
+
   return (
     <html
       lang="en"
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
+      <head>
+        {meLinks.map((href) => (
+          <link key={href} rel="me" href={href} />
+        ))}
+        <PersonJsonLd />
+      </head>
       <body className="min-h-full flex flex-col bg-paper text-ink font-sans">
         <a
           href="#hero"

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import { ArrowUpRight, Images } from "lucide-react";
 import { Section } from "@/components/primitives/section";
 import { Reveal } from "@/components/primitives/reveal";
@@ -11,6 +12,17 @@ import { ScreensLightbox } from "@/components/primitives/screens-lightbox";
 import { Tag } from "@/components/primitives/tag";
 import { content, type Content } from "@/config/content";
 import { cn } from "@/lib/utils";
+
+function withViewTransition(update: () => void) {
+  const doc = typeof document !== "undefined" ? document : null;
+  if (doc && "startViewTransition" in doc) {
+    (doc as Document & { startViewTransition: (cb: () => void) => unknown }).startViewTransition(
+      () => flushSync(update),
+    );
+  } else {
+    update();
+  }
+}
 
 type Project = Content["projects"][number];
 
@@ -23,7 +35,7 @@ const STATUS_LABEL: Record<string, string> = {
 export function Projects() {
   return (
     <Section id="projects" rail="04 — Personal projects">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {content.projects.map((project, idx) => (
           <Reveal key={project.slug} delay={idx * 0.06}>
             <ProjectCard project={project} />
@@ -119,7 +131,7 @@ function ProjectCard({ project }: { project: Project }) {
             {allScreens && allScreens.length > 0 && (
               <button
                 type="button"
-                onClick={() => setLightboxOpen(true)}
+                onClick={() => withViewTransition(() => setLightboxOpen(true))}
                 className="inline-flex items-center gap-1 font-sans text-xs text-ink transition-colors hover:text-accent"
               >
                 <Images className="h-3 w-3" strokeWidth={1.75} />
@@ -137,7 +149,7 @@ function ProjectCard({ project }: { project: Project }) {
         <ScreensLightbox
           screens={allScreens}
           altPrefix={project.name}
-          onClose={() => setLightboxOpen(false)}
+          onClose={() => withViewTransition(() => setLightboxOpen(false))}
         />
       )}
     </article>

@@ -83,7 +83,10 @@ export function Nav() {
   }, [measure]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-hairline/60 bg-paper/85 backdrop-blur supports-[backdrop-filter]:bg-paper/65">
+    <header
+      data-print="hide"
+      className="sticky top-0 z-50 border-b border-hairline/60 bg-paper/85 backdrop-blur supports-[backdrop-filter]:bg-paper/65"
+    >
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6 md:px-8">
         <Link
           href="#hero"
@@ -152,10 +155,17 @@ export function Nav() {
                   href={`#${item.id}`}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "border-b border-hairline/60 py-3 font-sans text-sm tracking-wide transition-colors",
+                    "relative border-b border-hairline/60 py-3 pl-4 font-sans text-sm tracking-wide transition-colors",
                     active === item.id ? "text-ink" : "text-taupe",
                   )}
                 >
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-accent transition-opacity",
+                      active === item.id ? "opacity-100" : "opacity-0",
+                    )}
+                  />
                   {item.label}
                 </a>
               ))}
