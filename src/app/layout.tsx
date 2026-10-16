@@ -18,6 +18,8 @@ const fraunces = Fraunces({
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  // Optical-size axis lets the hero use Inter's tighter display cut.
+  axes: ["opsz"],
   display: "swap",
 });
 

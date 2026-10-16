@@ -19,7 +19,7 @@ export type Content = {
     portrait?: string;
     years?: number;
     focusAreas?: string[];
-    currentlyUsing?: string[];
+    currentlyUsing?: { name: string; icon: string; iconSource: IconSource }[];
   };
   skills: {
     section: "technical";
@@ -60,6 +60,8 @@ export type Content = {
     name: string;
     tagline: string;
     description: string;
+    /** Short platform/domain labels, e.g. ["Web", "Marketing"]. */
+    category?: string[];
     stack: string[];
     status?: ProjectStatus;
     links?: { label: string; href: string; download?: boolean }[];
@@ -106,7 +108,13 @@ export const content: Content = {
     portrait: "/owner.png",
     years: 3,
     focusAreas: ["Full-stack web", "Backend systems", "Mobile (Flutter)"],
-    currentlyUsing: ["Claude Code", "Windsurf", "VS Code", "GitHub"],
+    currentlyUsing: [
+      { name: "Claude Code", icon: "claude", iconSource: "simple-icons" },
+      { name: "MCPs", icon: "modelcontextprotocol", iconSource: "simple-icons" },
+      { name: "Skills", icon: "Puzzle", iconSource: "lucide" },
+      { name: "Claude Terminal", icon: "SquareTerminal", iconSource: "lucide" },
+      { name: "Claude Routine", icon: "CalendarClock", iconSource: "lucide" },
+    ],
   },
 
   skills: [
@@ -260,6 +268,7 @@ export const content: Content = {
       tagline: "Buyer/seller e-commerce mobile app with built-in payments.",
       description:
         "Flutter mobile app backed by a Laravel API — buyers browse categorized listings, manage a cart, and pay via PayMongo; sellers post inventory and track orders. Authenticated with Google sign-in.",
+      category: ["Mobile", "E-commerce"],
       stack: ["Flutter", "Dart", "Laravel", "MySQL", "GetX", "PayMongo"],
       status: "shipped",
       image: "/projects/marketplace/cover.svg",
@@ -298,6 +307,7 @@ export const content: Content = {
       tagline: "Marketing site for a Cebu seaside studio rental.",
       description:
         "Next.js 14 + TypeScript landing site for a one-bedroom studio at Tambuli Seaside Living, Lapu-Lapu City. Showcases amenities, gallery, and host details, then deep-links to Airbnb for the booking flow.",
+      category: ["Web", "Marketing"],
       stack: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
       status: "shipped",
       image: "/projects/adams-staycation/adams-staycation-landing-page.png",
@@ -315,6 +325,7 @@ export const content: Content = {
       tagline: "Nightlife-themed social feed with image posts.",
       description:
         "React + TypeScript frontend on Vite, Node + Express backend with MongoDB and GridFS for image storage. Users sign up, post images with captions, and scroll a paginated feed.",
+      category: ["Web", "Social"],
       stack: [
         "React",
         "TypeScript",

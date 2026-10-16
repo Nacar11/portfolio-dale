@@ -27,6 +27,7 @@ export function PhoneMockupCover({
         "relative aspect-[16/10] w-full overflow-hidden rounded-t-xl border-b border-hairline bg-paper",
         className,
       )}
+      role="img"
       aria-label={alt}
     >
       {screens.map((src, i) => (
