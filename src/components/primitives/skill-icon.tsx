@@ -1,144 +1,92 @@
 import {
-  SiPhp,
-  SiPhpHex,
-  SiLaravel,
-  SiLaravelHex,
-  SiHtml5,
-  SiHtml5Hex,
-  SiCss,
-  SiCssHex,
-  SiJavascript,
-  SiJavascriptHex,
-  SiTypescript,
-  SiTypescriptHex,
-  SiReact,
-  SiReactHex,
-  SiFlutter,
-  SiFlutterHex,
-  SiPython,
-  SiPythonHex,
-  SiNextdotjs,
-  SiNextdotjsHex,
-  SiNestjs,
-  SiNestjsHex,
-  SiMysql,
-  SiMysqlHex,
-  SiPostgresql,
-  SiPostgresqlHex,
-  SiMongodb,
-  SiMongodbHex,
-  SiFirebase,
-  SiFirebaseHex,
-  SiDocker,
-  SiDockerHex,
-  SiVercel,
-  SiVercelHex,
-  SiDigitalocean,
-  SiDigitaloceanHex,
-  SiGithub,
-  SiGithubHex,
-  SiVite,
-  SiViteHex,
-  SiXampp,
-  SiXamppHex,
   SiClaude,
-  SiClaudeHex,
-  SiModelcontextprotocol,
-  SiModelcontextprotocolHex,
-  SiLinux,
-  SiLinuxHex,
+  SiCss,
   SiDart,
-  SiDartHex,
-  SiTailwindcss,
-  SiTailwindcssHex,
-  SiFramer,
-  SiFramerHex,
-  SiNodedotjs,
-  SiNodedotjsHex,
+  SiDocker,
   SiExpress,
-  SiExpressHex,
+  SiFirebase,
+  SiFlutter,
+  SiFramer,
+  SiGithub,
+  SiHtml5,
+  SiJavascript,
+  SiLaravel,
+  SiLinux,
+  SiModelcontextprotocol,
+  SiMongodb,
+  SiMysql,
+  SiNestjs,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPhp,
+  SiPostgresql,
+  SiPython,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+  SiVite,
+  SiXampp,
 } from "@icons-pack/react-simple-icons";
-import {
-  CalendarClock,
-  Clock,
-  Lightbulb,
-  MessageSquare,
-  Network,
-  Puzzle,
-  SquareTerminal,
-  Users,
-} from "lucide-react";
+import { CalendarClock, Network, Puzzle, SquareTerminal } from "lucide-react";
 import type { IconSource } from "@/config/content";
 import { cn } from "@/lib/utils";
 
-type SimpleIconComponent = React.ComponentType<{
+type IconComponent = React.ComponentType<{
   className?: string;
   color?: string;
-  title?: string;
-}>;
-
-type LucideIconComponent = React.ComponentType<{
-  className?: string;
   strokeWidth?: number;
 }>;
 
-type SimpleIconEntry = { component: SimpleIconComponent; color: string };
-
-const SIMPLE_ICON_MAP: Record<string, SimpleIconEntry> = {
-  php: { component: SiPhp, color: SiPhpHex },
-  laravel: { component: SiLaravel, color: SiLaravelHex },
-  html5: { component: SiHtml5, color: SiHtml5Hex },
-  css: { component: SiCss, color: SiCssHex },
-  css3: { component: SiCss, color: SiCssHex },
-  javascript: { component: SiJavascript, color: SiJavascriptHex },
-  typescript: { component: SiTypescript, color: SiTypescriptHex },
-  react: { component: SiReact, color: SiReactHex },
-  flutter: { component: SiFlutter, color: SiFlutterHex },
-  python: { component: SiPython, color: SiPythonHex },
-  nextdotjs: { component: SiNextdotjs, color: SiNextdotjsHex },
-  nestjs: { component: SiNestjs, color: SiNestjsHex },
-  mysql: { component: SiMysql, color: SiMysqlHex },
-  postgresql: { component: SiPostgresql, color: SiPostgresqlHex },
-  mongodb: { component: SiMongodb, color: SiMongodbHex },
-  firebase: { component: SiFirebase, color: SiFirebaseHex },
-  docker: { component: SiDocker, color: SiDockerHex },
-  vercel: { component: SiVercel, color: SiVercelHex },
-  digitalocean: { component: SiDigitalocean, color: SiDigitaloceanHex },
-  github: { component: SiGithub, color: SiGithubHex },
-  vite: { component: SiVite, color: SiViteHex },
-  xampp: { component: SiXampp, color: SiXamppHex },
-  claude: { component: SiClaude, color: SiClaudeHex },
-  modelcontextprotocol: {
-    component: SiModelcontextprotocol,
-    color: SiModelcontextprotocolHex,
-  },
-  linux: { component: SiLinux, color: SiLinuxHex },
-  dart: { component: SiDart, color: SiDartHex },
-  tailwindcss: { component: SiTailwindcss, color: SiTailwindcssHex },
-  framer: { component: SiFramer, color: SiFramerHex },
-  nodedotjs: { component: SiNodedotjs, color: SiNodedotjsHex },
-  express: { component: SiExpress, color: SiExpressHex },
+// Keys are the `icon` values used in content. simple-icons render in their brand
+// colour (`color="default"`); lucide glyphs render in ink.
+const SIMPLE_ICONS: Record<string, IconComponent> = {
+  claude: SiClaude,
+  css3: SiCss,
+  dart: SiDart,
+  docker: SiDocker,
+  express: SiExpress,
+  firebase: SiFirebase,
+  flutter: SiFlutter,
+  framer: SiFramer,
+  github: SiGithub,
+  html5: SiHtml5,
+  javascript: SiJavascript,
+  laravel: SiLaravel,
+  linux: SiLinux,
+  modelcontextprotocol: SiModelcontextprotocol,
+  mongodb: SiMongodb,
+  mysql: SiMysql,
+  nestjs: SiNestjs,
+  nextdotjs: SiNextdotjs,
+  nodedotjs: SiNodedotjs,
+  php: SiPhp,
+  postgresql: SiPostgresql,
+  python: SiPython,
+  react: SiReact,
+  tailwindcss: SiTailwindcss,
+  typescript: SiTypescript,
+  vercel: SiVercel,
+  vite: SiVite,
+  xampp: SiXampp,
 };
 
-const LUCIDE_ICON_MAP: Record<string, LucideIconComponent> = {
+const LUCIDE_ICONS: Record<string, IconComponent> = {
+  CalendarClock,
   Network,
-  Lightbulb,
-  Users,
-  MessageSquare,
-  Clock,
   Puzzle,
   SquareTerminal,
-  CalendarClock,
 };
 
-type SkillIconProps = {
+type GlyphProps = {
   icon: string;
   iconSource: IconSource;
   name: string;
   className?: string;
 };
 
-export function SkillIcon({ icon, iconSource, name, className }: SkillIconProps) {
+/** Icon in a small circular badge (skills list). */
+export function SkillIcon({ className, ...glyph }: GlyphProps) {
   return (
     <span
       className={cn(
@@ -146,39 +94,23 @@ export function SkillIcon({ icon, iconSource, name, className }: SkillIconProps)
         className,
       )}
     >
-      <SkillGlyph icon={icon} iconSource={iconSource} name={name} />
+      <SkillGlyph {...glyph} />
     </span>
   );
 }
 
-/** Bare icon without the circular badge — for chips that carry their own frame. */
-export function SkillGlyph({
-  icon,
-  iconSource,
-  name,
-  className = "h-3.5 w-3.5",
-}: {
-  icon: string;
-  iconSource: IconSource;
-  name: string;
-  className?: string;
-}) {
-  if (iconSource === "simple-icons") {
-    const entry = SIMPLE_ICON_MAP[icon];
-    if (entry) {
-      const Comp = entry.component;
-      return <Comp className={className} color={entry.color} title={name} />;
-    }
+/** Bare icon for chips that carry their own frame; unknown icons fall back to a monogram. */
+export function SkillGlyph({ icon, iconSource, name, className = "h-3.5 w-3.5" }: GlyphProps) {
+  if (iconSource === "simple-icons" && SIMPLE_ICONS[icon]) {
+    const Icon = SIMPLE_ICONS[icon];
+    return <Icon aria-hidden className={className} color="default" />;
   }
-  if (iconSource === "lucide") {
-    const Comp = LUCIDE_ICON_MAP[icon];
-    if (Comp) {
-      return <Comp className={cn(className, "text-ink")} strokeWidth={1.5} />;
-    }
+  if (iconSource === "lucide" && LUCIDE_ICONS[icon]) {
+    const Icon = LUCIDE_ICONS[icon];
+    return <Icon aria-hidden className={cn(className, "text-ink")} strokeWidth={1.5} />;
   }
-  // Fallback: monogram of the skill's first letter
   return (
-    <span className="font-sans text-[10px] font-semibold text-ink-soft">
+    <span aria-hidden className="font-sans text-[10px] font-semibold text-ink-soft">
       {name.charAt(0).toUpperCase()}
     </span>
   );

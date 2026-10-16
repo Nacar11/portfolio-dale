@@ -22,7 +22,6 @@ export type Content = {
     currentlyUsing?: { name: string; icon: string; iconSource: IconSource }[];
   };
   skills: {
-    section: "technical";
     category: string;
     items: { name: string; icon: string; iconSource: IconSource }[];
   }[];
@@ -75,6 +74,8 @@ export type Content = {
   }[];
   achievements: {
     title: string;
+    /** Short credit line under the title, e.g. teammates and venue. */
+    caption?: string;
     date?: string;
     detail?: string;
     image?: string;
@@ -119,7 +120,6 @@ export const content: Content = {
 
   skills: [
     {
-      section: "technical",
       category: "Languages & Frameworks",
       items: [
         { name: "PHP", icon: "php", iconSource: "simple-icons" },
@@ -136,7 +136,6 @@ export const content: Content = {
       ],
     },
     {
-      section: "technical",
       category: "Databases",
       items: [
         { name: "MySQL", icon: "mysql", iconSource: "simple-icons" },
@@ -146,7 +145,6 @@ export const content: Content = {
       ],
     },
     {
-      section: "technical",
       category: "DevOps, Servers & Infrastructure",
       items: [
         { name: "Docker", icon: "docker", iconSource: "simple-icons" },
@@ -154,7 +152,6 @@ export const content: Content = {
       ],
     },
     {
-      section: "technical",
       category: "Tools & Development Environment",
       items: [
         {
@@ -360,6 +357,7 @@ export const content: Content = {
     {
       title:
         "Excellence Award — 18th Digital Signal Processing Creative Design Contest",
+      caption: "With Patalita, Telebanco, Gadiane · USJ–R team · STUST, Tainan",
       date: "March 2023",
       detail:
         "A college-era highlight: awarded in the International Group at the annual contest hosted by Southern Taiwan University of Science and Technology (STUST), which recognizes creative engineering work in digital signal processing from entries across the Asia-Pacific region.",

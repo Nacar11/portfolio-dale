@@ -41,13 +41,11 @@ export function StackChips({ stack, className, chipClassName }: StackChipsProps)
               chipClassName,
             )}
           >
-            <span aria-hidden className="inline-flex">
-              <SkillGlyph
-                icon={icon?.icon ?? ""}
-                iconSource={icon?.iconSource ?? "simple-icons"}
-                name={tech}
-              />
-            </span>
+            <SkillGlyph
+              icon={icon?.icon ?? ""}
+              iconSource={icon?.iconSource ?? "simple-icons"}
+              name={tech}
+            />
             {tech}
           </li>
         );

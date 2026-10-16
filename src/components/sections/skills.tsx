@@ -1,61 +1,54 @@
+import { GraduationCap } from "lucide-react";
 import { Section } from "@/components/primitives/section";
 import { Reveal } from "@/components/primitives/reveal";
-import { GraduationCap } from "lucide-react";
 import { SkillGlyph, SkillIcon } from "@/components/primitives/skill-icon";
 import { content } from "@/config/content";
+import { cn } from "@/lib/utils";
+
+const CARD = "h-full rounded-xl border p-6 md:p-10";
+const CARD_TITLE =
+  "type-headline font-sans text-[1.75rem] leading-tight font-bold text-ink md:text-[2rem]";
+const BLOCK_TITLE =
+  "type-headline mt-3 font-sans text-[1.5rem] leading-[1.15] font-bold text-ink md:text-[1.75rem]";
+const DIVIDED = "mt-8 border-t border-hairline-strong pt-8";
 
 export function Skills() {
-  const technical = content.skills.filter((s) => s.section === "technical");
-  const { education, currentlyExploring } = content.background;
-  const currentlyUsing = content.about.currentlyUsing;
-
   return (
     <Section id="skills" rail="02 — Skills">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <Reveal>
-          <SkillCard title="Technical Skills" groups={technical} />
+          <TechnicalSkillsCard />
         </Reveal>
         <Reveal delay={0.1}>
-          <BackgroundCard
-            education={education}
-            currentlyExploring={currentlyExploring}
-            currentlyUsing={currentlyUsing}
-          />
+          <BackgroundCard />
         </Reveal>
       </div>
     </Section>
   );
 }
 
-type SkillGroup = (typeof content.skills)[number];
+function TechnicalSkillsCard() {
+  const total = content.skills.reduce((sum, group) => sum + group.items.length, 0);
 
-function SkillCard({ title, groups }: { title: string; groups: SkillGroup[] }) {
   return (
-    <div className="h-full rounded-xl border border-hairline bg-surface p-6 md:p-8">
-      <h3 className="flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-ink">
-        <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />
-        {title}
-      </h3>
+    <div className={cn(CARD, "border-hairline bg-surface")}>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
+        <h3 className={CARD_TITLE}>Technical skills</h3>
+        <BlockLabel>{total} technologies</BlockLabel>
+      </div>
 
-      <div className="mt-6 space-y-7">
-        {groups.map((group) => (
+      <div className="mt-8 space-y-7">
+        {content.skills.map((group) => (
           <div key={group.category}>
-            <p className="border-b border-hairline pb-2 font-sans text-[11px] uppercase tracking-[0.12em] text-taupe">
-              {group.category}
-            </p>
+            <BlockLabel className="border-b border-hairline pb-2">{group.category}</BlockLabel>
             <ul className="mt-4 grid grid-cols-1 gap-y-1 sm:grid-cols-2 sm:gap-x-4">
               {group.items.map((item) => (
-                <li key={item.name}>
-                  <div className="flex items-center gap-3 rounded-md px-2 py-2 transition-colors hover:bg-paper">
-                    <SkillIcon
-                      icon={item.icon}
-                      iconSource={item.iconSource}
-                      name={item.name}
-                    />
-                    <span className="font-sans text-sm text-ink">
-                      {item.name}
-                    </span>
-                  </div>
+                <li
+                  key={item.name}
+                  className="flex items-center gap-3 rounded-md px-2 py-2 transition-colors hover:bg-paper"
+                >
+                  <SkillIcon icon={item.icon} iconSource={item.iconSource} name={item.name} />
+                  <span className="font-sans text-sm text-ink">{item.name}</span>
                 </li>
               ))}
             </ul>
@@ -66,80 +59,50 @@ function SkillCard({ title, groups }: { title: string; groups: SkillGroup[] }) {
   );
 }
 
-type Background = typeof content.background;
-type Tool = NonNullable<typeof content.about.currentlyUsing>[number];
-
-function BackgroundCard({
-  education,
-  currentlyExploring,
-  currentlyUsing,
-}: {
-  education: Background["education"];
-  currentlyExploring: Background["currentlyExploring"];
-  currentlyUsing?: Tool[];
-}) {
+function BackgroundCard() {
+  const { education, currentlyExploring } = content.background;
+  const tools = content.about.currentlyUsing ?? [];
   const [leadWord, ...restWords] = currentlyExploring.title.split(" ");
 
   return (
-    <div className="h-full rounded-xl border border-hairline bg-paper-warm p-6 md:p-10">
-      <h3
-        className="type-headline font-sans text-[1.75rem] font-bold leading-tight text-ink md:text-[2rem]"
-      >
-        Background
-      </h3>
+    <div className={cn(CARD, "border-hairline bg-paper-warm")}>
+      <h3 className={CARD_TITLE}>Background</h3>
 
       <div className="mt-8">
         <BlockLabel>Education</BlockLabel>
-        <p
-          className="type-headline mt-3 font-sans text-[1.5rem] font-bold leading-tight text-ink md:text-[1.75rem]"
-        >
-          {education.degree}
-        </p>
+        <p className={BLOCK_TITLE}>{education.degree}</p>
         <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
           <span className="font-sans text-base font-medium text-ink">
             {education.institution}
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-hairline-strong bg-surface px-3 py-1 font-sans text-[13px] font-semibold text-ink">
-            <GraduationCap
-              aria-hidden
-              className="h-3.5 w-3.5 text-accent"
-              strokeWidth={2}
-            />
+            <GraduationCap aria-hidden className="h-3.5 w-3.5 text-accent" strokeWidth={2} />
             Graduated {education.year}
           </span>
         </div>
       </div>
 
-      <div className="mt-8 border-t border-hairline-strong pt-8">
+      <div className={DIVIDED}>
         <BlockLabel>Currently exploring</BlockLabel>
-        <p
-          className="type-headline mt-3 font-sans text-[1.5rem] font-bold leading-[1.15] text-ink md:text-[1.75rem]"
-        >
-          {leadWord}{" "}
-          <span className="text-taupe">{restWords.join(" ")}</span>
+        <p className={BLOCK_TITLE}>
+          {leadWord} <span className="text-taupe">{restWords.join(" ")}</span>
         </p>
         <p className="mt-4 max-w-[46ch] font-sans text-base leading-[1.7] text-ink-soft">
           {currentlyExploring.description}
         </p>
       </div>
 
-      {currentlyUsing && currentlyUsing.length > 0 && (
-        <div className="mt-8 border-t border-hairline-strong pt-8">
+      {tools.length > 0 && (
+        <div className={DIVIDED}>
           <BlockLabel>Currently using</BlockLabel>
           <ul className="mt-4 flex flex-wrap gap-2.5">
-            {currentlyUsing.map((tool) => (
-              <li key={tool.name}>
-                <span className="inline-flex items-center gap-2 rounded-full border border-hairline bg-surface px-4 py-2 font-sans text-[0.9375rem] font-medium text-ink">
-                  <span aria-hidden className="inline-flex">
-                    <SkillGlyph
-                      icon={tool.icon}
-                      iconSource={tool.iconSource}
-                      name={tool.name}
-                      className="h-4 w-4"
-                    />
-                  </span>
-                  {tool.name}
-                </span>
+            {tools.map((tool) => (
+              <li
+                key={tool.name}
+                className="inline-flex items-center gap-2 rounded-full border border-hairline bg-surface px-4 py-2 font-sans text-[0.9375rem] font-medium text-ink"
+              >
+                <SkillGlyph {...tool} className="h-4 w-4" />
+                {tool.name}
               </li>
             ))}
           </ul>
@@ -149,9 +112,14 @@ function BackgroundCard({
   );
 }
 
-function BlockLabel({ children }: { children: React.ReactNode }) {
+function BlockLabel({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
-    <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-soft">
+    <p
+      className={cn(
+        "font-mono text-[11px] font-semibold tracking-[0.16em] text-ink-soft uppercase",
+        className,
+      )}
+    >
       {children}
     </p>
   );
