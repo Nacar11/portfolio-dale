@@ -41,12 +41,31 @@ import {
   SiViteHex,
   SiXampp,
   SiXamppHex,
+  SiClaude,
+  SiClaudeHex,
+  SiModelcontextprotocol,
+  SiModelcontextprotocolHex,
+  SiLinux,
+  SiLinuxHex,
+  SiDart,
+  SiDartHex,
+  SiTailwindcss,
+  SiTailwindcssHex,
+  SiFramer,
+  SiFramerHex,
+  SiNodedotjs,
+  SiNodedotjsHex,
+  SiExpress,
+  SiExpressHex,
 } from "@icons-pack/react-simple-icons";
 import {
+  CalendarClock,
   Clock,
   Lightbulb,
   MessageSquare,
   Network,
+  Puzzle,
+  SquareTerminal,
   Users,
 } from "lucide-react";
 import type { IconSource } from "@/config/content";
@@ -88,6 +107,17 @@ const SIMPLE_ICON_MAP: Record<string, SimpleIconEntry> = {
   github: { component: SiGithub, color: SiGithubHex },
   vite: { component: SiVite, color: SiViteHex },
   xampp: { component: SiXampp, color: SiXamppHex },
+  claude: { component: SiClaude, color: SiClaudeHex },
+  modelcontextprotocol: {
+    component: SiModelcontextprotocol,
+    color: SiModelcontextprotocolHex,
+  },
+  linux: { component: SiLinux, color: SiLinuxHex },
+  dart: { component: SiDart, color: SiDartHex },
+  tailwindcss: { component: SiTailwindcss, color: SiTailwindcssHex },
+  framer: { component: SiFramer, color: SiFramerHex },
+  nodedotjs: { component: SiNodedotjs, color: SiNodedotjsHex },
+  express: { component: SiExpress, color: SiExpressHex },
 };
 
 const LUCIDE_ICON_MAP: Record<string, LucideIconComponent> = {
@@ -96,6 +126,9 @@ const LUCIDE_ICON_MAP: Record<string, LucideIconComponent> = {
   Users,
   MessageSquare,
   Clock,
+  Puzzle,
+  SquareTerminal,
+  CalendarClock,
 };
 
 type SkillIconProps = {
@@ -118,26 +151,29 @@ export function SkillIcon({ icon, iconSource, name, className }: SkillIconProps)
   );
 }
 
-function SkillGlyph({
+/** Bare icon without the circular badge — for chips that carry their own frame. */
+export function SkillGlyph({
   icon,
   iconSource,
   name,
+  className = "h-3.5 w-3.5",
 }: {
   icon: string;
   iconSource: IconSource;
   name: string;
+  className?: string;
 }) {
   if (iconSource === "simple-icons") {
     const entry = SIMPLE_ICON_MAP[icon];
     if (entry) {
       const Comp = entry.component;
-      return <Comp className="h-3.5 w-3.5" color={entry.color} title={name} />;
+      return <Comp className={className} color={entry.color} title={name} />;
     }
   }
   if (iconSource === "lucide") {
     const Comp = LUCIDE_ICON_MAP[icon];
     if (Comp) {
-      return <Comp className="h-3.5 w-3.5 text-ink" strokeWidth={1.5} />;
+      return <Comp className={cn(className, "text-ink")} strokeWidth={1.5} />;
     }
   }
   // Fallback: monogram of the skill's first letter

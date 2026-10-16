@@ -14,6 +14,10 @@ type RepoMenuProps = {
 
 const CLOSE_GRACE_MS = 150;
 
+// Outlined secondary CTA — pairs with the filled primary pill next to it.
+const TRIGGER_CLASS =
+  "inline-flex h-12 cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-ink px-6 font-sans text-[0.9375rem] font-semibold text-ink transition-colors hover:bg-ink hover:text-paper";
+
 export function RepoMenu({ repos, className }: RepoMenuProps) {
   if (repos.length === 0) return null;
 
@@ -25,12 +29,9 @@ export function RepoMenu({ repos, className }: RepoMenuProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="View source on GitHub (opens in new tab)"
-        className={cn(
-          "inline-flex items-center gap-1 font-sans text-xs text-ink transition-colors hover:text-accent",
-          className,
-        )}
+        className={cn(TRIGGER_CLASS, className)}
       >
-        <SiGithub className="h-3 w-3" />
+        <SiGithub aria-hidden className="h-4 w-4" />
         GitHub
       </a>
     );
@@ -123,16 +124,17 @@ function RepoDropdown({
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1 font-sans text-xs text-ink transition-colors hover:text-accent"
+        className={TRIGGER_CLASS}
       >
-        <SiGithub className="h-3 w-3" />
+        <SiGithub aria-hidden className="h-4 w-4" />
         GitHub
         <ChevronDown
+          aria-hidden
           className={cn(
-            "h-3 w-3 transition-transform",
+            "h-4 w-4 transition-transform",
             open && "rotate-180",
           )}
-          strokeWidth={1.75}
+          strokeWidth={2}
         />
       </button>
 
@@ -140,7 +142,7 @@ function RepoDropdown({
         <div
           role="menu"
           onKeyDown={onMenuKeyDown}
-          className="absolute left-0 z-10 mt-1.5 min-w-[140px] overflow-hidden rounded-md border border-hairline bg-surface shadow-lg"
+          className="absolute left-0 z-10 mt-2 min-w-[160px] overflow-hidden rounded-xl border border-hairline bg-surface py-1 shadow-lg"
         >
           {repos.map((repo, i) => (
             <a
@@ -154,7 +156,7 @@ function RepoDropdown({
               role="menuitem"
               onClick={() => setOpen(false)}
               aria-label={`Visit ${repo.label ?? "repository"} on GitHub (opens in new tab)`}
-              className="block px-3 py-2 font-sans text-xs text-ink-soft transition-colors hover:bg-paper hover:text-ink focus:bg-paper focus:text-ink focus:outline-none"
+              className="block px-4 py-2.5 font-sans text-sm text-ink-soft transition-colors hover:bg-paper hover:text-ink focus:bg-paper focus:text-ink focus:outline-none"
             >
               {repo.label ?? "Repository"}
             </a>
