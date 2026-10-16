@@ -94,8 +94,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -123,12 +121,6 @@
 @utility type-headline {
   font-variation-settings: "opsz" 32;
   letter-spacing: -0.03em;
-}
-
-/* Fraunces optical-size axis: use on large display numerals to gain weight without darkening tone */
-.font-display-display {
-  font-variation-settings: "opsz" 144;
-  font-weight: 500;
 }
 
 /* Subtle scroll-driven fade on section rails — progressive enhancement; degrades silently */
@@ -166,6 +158,6 @@
   img { max-width: 100%; height: auto; }
   /* Tabbed content (e.g. experience by company) prints every panel */
   [role="tabpanel"][hidden] { display: block !important; }
-  /* Collapse decorative tokens that don't reproduce well */
-  .print-compact { padding: 0 !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; background: transparent !important; }
+  /* Scroll reveals that never entered the viewport would otherwise print blank */
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
 }

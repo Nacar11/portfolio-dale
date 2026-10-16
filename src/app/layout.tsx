@@ -107,7 +107,7 @@ export default function RootLayout({
         ))}
         <PersonJsonLd />
       </head>
-      <body className="min-h-full flex flex-col bg-paper text-ink font-sans">
+      <body className="flex min-h-full flex-col">
         <a
           href="#hero"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:font-sans focus:text-sm focus:text-paper"

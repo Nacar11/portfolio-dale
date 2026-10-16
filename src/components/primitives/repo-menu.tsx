@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { SiGithub } from "@icons-pack/react-simple-icons";
+import { cta } from "@/components/primitives/styles";
 import { cn } from "@/lib/utils";
 
 type Repo = { label?: string; href: string };
@@ -13,10 +14,6 @@ type RepoMenuProps = {
 };
 
 const CLOSE_GRACE_MS = 150;
-
-// Outlined secondary CTA — pairs with the filled primary pill next to it.
-const TRIGGER_CLASS =
-  "inline-flex h-12 cursor-pointer items-center gap-2 rounded-full border-[1.5px] border-ink px-6 font-sans text-[0.9375rem] font-semibold text-ink transition-colors hover:bg-ink hover:text-paper";
 
 export function RepoMenu({ repos, className }: RepoMenuProps) {
   if (repos.length === 0) return null;
@@ -29,7 +26,7 @@ export function RepoMenu({ repos, className }: RepoMenuProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="View source on GitHub (opens in new tab)"
-        className={cn(TRIGGER_CLASS, className)}
+        className={cn(cta.secondary, className)}
       >
         <SiGithub aria-hidden className="h-4 w-4" />
         GitHub
@@ -113,18 +110,21 @@ function RepoDropdown({
     <div
       ref={wrapperRef}
       className={cn("relative inline-block", className)}
-      onPointerEnter={() => {
+      // Hover-to-open is mouse-only: on touch, pointerenter fires right before
+      // click, and the click's toggle would immediately close the menu again.
+      onPointerEnter={(e) => {
+        if (e.pointerType !== "mouse") return;
         clearCloseTimer();
         setOpen(true);
       }}
-      onPointerLeave={scheduleClose}
+      onPointerLeave={(e) => e.pointerType === "mouse" && scheduleClose()}
     >
       <button
         type="button"
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className={TRIGGER_CLASS}
+        className={cta.secondary}
       >
         <SiGithub aria-hidden className="h-4 w-4" />
         GitHub

@@ -2,18 +2,18 @@ import { ArrowUpRight, Lock } from "lucide-react";
 import { Section } from "@/components/primitives/section";
 import { Reveal } from "@/components/primitives/reveal";
 import { StackChips } from "@/components/primitives/stack-chips";
+import { cta, ctaIcon, ctaUnderlineLabel, sectionHeadline } from "@/components/primitives/styles";
 import { ExperienceTabs } from "@/components/sections/experience-tabs";
 import { content } from "@/config/content";
+import { cn } from "@/lib/utils";
 
 type Entry = (typeof content.experience)[number];
 type Project = Entry["projects"][number];
 
+/** "2024-06" → "2024 — Present" style ranges; content dates are ISO year-month. */
 function formatPeriod(start: string, end: string | "Present") {
-  return `${formatYear(start)} — ${end === "Present" ? "Present" : formatYear(end)}`;
-}
-
-function formatYear(value: string) {
-  return value.slice(0, 4);
+  const year = (isoMonth: string) => isoMonth.slice(0, 4);
+  return `${year(start)} — ${end === "Present" ? end : year(end)}`;
 }
 
 function slugify(value: string) {
@@ -30,7 +30,7 @@ export function ExperienceTimeline() {
   return (
     <Section id="experience" rail="03 — Experience">
       <Reveal>
-        <h2 className="type-display font-sans text-[clamp(2.5rem,7.5vw,4.75rem)] leading-[1.02] font-extrabold text-ink">
+        <h2 className={sectionHeadline}>
           Where I’ve <span className="text-taupe">built things.</span>
         </h2>
       </Reveal>
@@ -135,15 +135,11 @@ function ProjectCard({
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Visit ${project.name} (opens in new tab)`}
-            className="group mt-6 inline-flex h-11 items-center font-sans text-[0.9375rem] font-semibold text-ink"
+            className={cn(cta.underline, "mt-6")}
           >
-            <span className="inline-flex items-center gap-1 border-b-[3px] border-accent pt-[5px] pb-0.5 transition-colors group-hover:border-ink">
+            <span className={ctaUnderlineLabel}>
               Visit site
-              <ArrowUpRight
-                aria-hidden
-                className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                strokeWidth={2}
-              />
+              <ArrowUpRight aria-hidden className={ctaIcon.upRight} strokeWidth={2} />
             </span>
           </a>
         )}

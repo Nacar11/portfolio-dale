@@ -5,6 +5,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+const CONTROL =
+  "inline-flex cursor-pointer items-center justify-center rounded-full bg-surface/90 text-ink shadow-md transition-colors hover:bg-surface";
+// Prev/next sit side-by-side at the bottom on mobile, at the edges on desktop.
+const STEP_BUTTON = cn(
+  CONTROL,
+  "absolute bottom-4 z-10 h-11 w-11 md:top-1/2 md:bottom-auto md:h-12 md:w-12 md:-translate-y-1/2",
+);
+// Invisible mobile tap zones over the left/right thirds of the screen.
+const TAP_ZONE = "absolute top-0 h-full w-1/3 opacity-0 focus:outline-none md:hidden";
+
 type ScreensLightboxProps = {
   screens: string[];
   altPrefix: string;
@@ -12,6 +22,10 @@ type ScreensLightboxProps = {
   onClose: () => void;
 };
 
+/**
+ * Full-screen image viewer on a native modal `<dialog>`: the browser traps
+ * focus, makes the page inert and maps Escape to `cancel`.
+ */
 export function ScreensLightbox({
   screens,
   altPrefix,
@@ -19,166 +33,106 @@ export function ScreensLightbox({
   onClose,
 }: ScreensLightboxProps) {
   const [index, setIndex] = useState(initialIndex);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const lastFocusedRef = useRef<HTMLElement | null>(null);
-
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const total = screens.length;
+  const multiple = total > 1;
 
-  const prev = useCallback(
-    () => setIndex((i) => (i > 0 ? i - 1 : total - 1)),
-    [total],
-  );
-  const next = useCallback(
-    () => setIndex((i) => (i < total - 1 ? i + 1 : 0)),
+  const step = useCallback(
+    (delta: number) => setIndex((i) => (i + delta + total) % total),
     [total],
   );
 
-  // Lock body scroll + manage focus on mount; restore on unmount
+  // Open modally and lock page scroll. On unmount, close() first: the page is
+  // inert while the modal is open, so focus can't return to the trigger before.
   useEffect(() => {
-    lastFocusedRef.current = document.activeElement as HTMLElement | null;
+    const dialog = dialogRef.current;
+    const returnFocus = document.activeElement as HTMLElement | null;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    dialogRef.current?.focus();
+    dialog?.showModal();
     return () => {
+      dialog?.close();
       document.body.style.overflow = prevOverflow;
-      lastFocusedRef.current?.focus();
+      returnFocus?.focus();
     };
   }, []);
 
-  // Keyboard nav
+  // Arrow keys page through screens wherever focus is (it can rest on the document).
   useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-      } else if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        prev();
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        next();
-      }
+    if (!multiple) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault();
+      step(e.key === "ArrowLeft" ? -1 : 1);
     }
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [onClose, prev, next]);
-
-  const currentSrc = screens[index];
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [multiple, step]);
 
   return (
-    <div
+    <dialog
       ref={dialogRef}
-      role="dialog"
-      aria-modal="true"
       aria-label={`${altPrefix} — screen ${index + 1} of ${total}`}
-      tabIndex={-1}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 px-4 py-6 backdrop-blur-sm focus:outline-none"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+      onCancel={(e) => {
+        e.preventDefault();
+        onClose();
       }}
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+      className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none items-center justify-center border-0 bg-ink/85 px-4 py-6 backdrop-blur-sm open:flex backdrop:bg-transparent"
     >
-      {/* Close */}
       <button
         type="button"
         onClick={onClose}
         aria-label="Close gallery"
-        className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-surface/90 text-ink shadow-md transition-colors hover:bg-surface"
+        className={cn(CONTROL, "absolute top-4 right-4 z-10 h-10 w-10")}
       >
-        <X className="h-5 w-5" strokeWidth={1.75} />
+        <X aria-hidden className="h-5 w-5" strokeWidth={1.75} />
       </button>
 
-      {/* Counter (hidden when only one image) */}
-      {total > 1 && (
+      {multiple && (
         <div
           aria-live="polite"
-          className="absolute left-4 top-4 rounded-full bg-surface/90 px-3 py-1 font-mono text-xs text-ink shadow-md"
+          className="absolute top-4 left-4 z-10 rounded-full bg-surface/90 px-3 py-1 font-mono text-xs text-ink shadow-md"
         >
           {index + 1} / {total}
         </div>
       )}
 
-      {/* Prev */}
-      {total > 1 && (
-        <button
-          type="button"
-          onClick={prev}
-          aria-label="Previous screen"
-          className="absolute left-4 top-1/2 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-ink shadow-md transition-colors hover:bg-surface md:inline-flex"
-        >
-          <ChevronLeft className="h-6 w-6" strokeWidth={1.75} />
-        </button>
-      )}
-
-      {/* Current image — generous max-width so landscape images (e.g. certificates) also fit comfortably */}
-      <div className="relative flex h-full max-h-[85vh] w-full max-w-[min(900px,95vw)] items-center justify-center">
-        <div className="relative h-full w-full overflow-hidden rounded-[1.5rem] border border-hairline bg-surface shadow-2xl">
-          <Image
-            key={currentSrc}
-            src={currentSrc}
-            alt={total > 1 ? `${altPrefix} screen ${index + 1}` : altPrefix}
-            fill
-            sizes="(max-width: 768px) 95vw, 900px"
-            className="object-contain"
-            priority
-          />
-        </div>
+      {/* Generous max-width so landscape images (e.g. certificates) also fit */}
+      <div className="relative h-full max-h-[85vh] w-full max-w-[min(900px,95vw)] overflow-hidden rounded-[1.5rem] border border-hairline bg-surface shadow-2xl">
+        <Image
+          key={screens[index]}
+          src={screens[index]}
+          alt={multiple ? `${altPrefix} screen ${index + 1}` : altPrefix}
+          fill
+          sizes="(max-width: 768px) 95vw, 900px"
+          className="object-contain"
+          priority
+        />
       </div>
 
-      {/* Next */}
-      {total > 1 && (
-        <button
-          type="button"
-          onClick={next}
-          aria-label="Next screen"
-          className="absolute right-4 top-1/2 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-ink shadow-md transition-colors hover:bg-surface md:inline-flex"
-        >
-          <ChevronRight className="h-6 w-6" strokeWidth={1.75} />
-        </button>
-      )}
-
-      {/* Mobile prev/next strip */}
-      {total > 1 && (
-        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-3 md:hidden">
+      {multiple && (
+        <>
+          <button type="button" tabIndex={-1} aria-hidden onClick={() => step(-1)} className={cn(TAP_ZONE, "left-0")} />
+          <button type="button" tabIndex={-1} aria-hidden onClick={() => step(1)} className={cn(TAP_ZONE, "right-0")} />
           <button
             type="button"
-            onClick={prev}
+            onClick={() => step(-1)}
             aria-label="Previous screen"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface/90 text-ink shadow-md"
+            className={cn(STEP_BUTTON, "left-[calc(50%-3.25rem)] md:left-4")}
           >
-            <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
+            <ChevronLeft aria-hidden className="h-5 w-5 md:h-6 md:w-6" strokeWidth={1.75} />
           </button>
           <button
             type="button"
-            onClick={next}
+            onClick={() => step(1)}
             aria-label="Next screen"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface/90 text-ink shadow-md"
+            className={cn(STEP_BUTTON, "right-[calc(50%-3.25rem)] md:right-4")}
           >
-            <ChevronRight className="h-5 w-5" strokeWidth={1.75} />
+            <ChevronRight aria-hidden className="h-5 w-5 md:h-6 md:w-6" strokeWidth={1.75} />
           </button>
-        </div>
+        </>
       )}
-
-      {/* Tap zones (mobile, behind buttons) */}
-      <button
-        type="button"
-        onClick={prev}
-        aria-hidden="true"
-        tabIndex={-1}
-        className={cn(
-          "absolute left-0 top-0 z-0 h-full w-1/3 md:hidden",
-          "opacity-0 focus:outline-none",
-        )}
-      />
-      <button
-        type="button"
-        onClick={next}
-        aria-hidden="true"
-        tabIndex={-1}
-        className={cn(
-          "absolute right-0 top-0 z-0 h-full w-1/3 md:hidden",
-          "opacity-0 focus:outline-none",
-        )}
-      />
-    </div>
+    </dialog>
   );
 }

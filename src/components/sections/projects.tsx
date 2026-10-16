@@ -1,26 +1,22 @@
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Images } from "lucide-react";
 import { Section } from "@/components/primitives/section";
 import { Reveal } from "@/components/primitives/reveal";
 import { RepoMenu } from "@/components/primitives/repo-menu";
 import { PhoneMockupCover } from "@/components/primitives/phone-mockup-cover";
-import { ScreensButton } from "@/components/primitives/screens-button";
+import { LightboxTrigger } from "@/components/primitives/lightbox-trigger";
 import { StackChips } from "@/components/primitives/stack-chips";
-import { content, type Content } from "@/config/content";
+import { cta, ctaIcon, ctaUnderlineLabel, sectionHeadline } from "@/components/primitives/styles";
+import { content, type Content, type ProjectStatus } from "@/config/content";
 import { cn } from "@/lib/utils";
 
 type Project = Content["projects"][number];
 
-const STATUS_LABEL: Record<string, string> = {
+const STATUS_LABEL: Record<ProjectStatus, string> = {
   shipped: "Shipped",
   "in-progress": "In progress",
   archived: "Archived",
 };
-
-const PRIMARY_CTA =
-  "group inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 font-sans text-[0.9375rem] font-semibold text-paper transition-colors hover:bg-accent-ink";
-const SECONDARY_CTA =
-  "group inline-flex h-12 items-center gap-2 rounded-full border-[1.5px] border-ink px-6 font-sans text-[0.9375rem] font-semibold text-ink transition-colors hover:bg-ink hover:text-paper";
 
 // Chips sit on white cards here, so they take the warm tint instead of an outline.
 const CHIP_ON_SURFACE = "border-transparent bg-paper-warm";
@@ -31,7 +27,7 @@ export function Projects() {
   return (
     <Section id="projects" rail="04 — Personal projects">
       <Reveal>
-        <h2 className="type-display font-sans text-[clamp(2.5rem,7.5vw,4.75rem)] leading-[1.02] font-extrabold text-ink">
+        <h2 className={sectionHeadline}>
           Side projects, <span className="text-taupe">shipped.</span>
         </h2>
       </Reveal>
@@ -193,24 +189,24 @@ function ProjectActions({
             rel="noopener noreferrer"
             download={link.download ? "" : undefined}
             aria-label={`${link.label} — ${project.name}${link.download ? "" : " (opens in new tab)"}`}
-            className={i === 0 ? PRIMARY_CTA : SECONDARY_CTA}
+            className={i === 0 ? cta.primary : cta.secondary}
           >
             {link.label}
             <Icon
               aria-hidden
-              className={cn(
-                "h-4 w-4 transition-transform",
-                isDownload
-                  ? "group-hover:translate-y-0.5"
-                  : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
-              )}
+              className={isDownload ? ctaIcon.down : ctaIcon.upRight}
               strokeWidth={2}
             />
           </a>
         );
       })}
       <RepoMenu repos={repos} />
-      <ScreensButton screens={screens} name={project.name} />
+      <LightboxTrigger images={screens} label={project.name} className={cta.underline}>
+        <span className={ctaUnderlineLabel}>
+          <Images aria-hidden className="h-4 w-4" strokeWidth={2} />
+          View {screens.length} screens
+        </span>
+      </LightboxTrigger>
     </div>
   );
 }

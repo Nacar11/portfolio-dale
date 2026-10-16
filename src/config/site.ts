@@ -7,5 +7,3 @@ export const site = {
   author: "Dale Nacario",
   locale: "en-US",
 } as const;
-
-export type Site = typeof site;
